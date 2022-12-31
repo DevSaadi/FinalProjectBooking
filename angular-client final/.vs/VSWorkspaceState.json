@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\cmnuser",
+    "\\src\\app\\login"
+  ],
+  "SelectedNode": "\\src\\app\\cmnuser\\cmnuser.component.html",
+  "PreviewInSolutionExplorer": false
+}

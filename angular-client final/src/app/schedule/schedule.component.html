@@ -1,0 +1,146 @@
+
+<div>
+  <div class="container">
+  <header><h1 style="text-align:center">Bus Schedule</h1></header>
+  <h4>Add New {{title}}</h4>
+  <form id="scheduleForm" [formGroup]="scheduleForm" #f="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form first">
+    <div class="details personal">
+
+
+
+      <div class="fields">
+        <div class="input-field">
+          <label for="departureTime">Departure Time: </label>
+          <input type="datetime-local" id="departureTime" name="departureTime" formControlName="departureTime" placeholder="departure Time" required
+                 onfocus="this.placeholder=''" onblur="this.placeholder='departure Time'" autocomplete="off" tabindex="1" />
+        </div>
+        <div class="input-field">
+          <label for="arrivalTime">Arrival Time: </label>
+          <input type="datetime-local" id="arrivalTime" name="arrivalTime" formControlName="arrivalTime" placeholder="arrival Time" required
+                 onfocus="this.placeholder=''" onblur="this.placeholder='arrival Time'" autocomplete="off" tabindex="1" />
+        </div>
+
+
+        <div class="input-field">
+          <label for="actualDepartureTime">Actual Departure Time: </label>
+          <input type="datetime-local" id="actualDepartureTime" name="actualDepartureTime" formControlName="actualDepartureTime" />
+        </div>
+
+        <div class="input-field">
+          <label for="actualArrivalTime">Actual Arrival Time: </label>
+          <input type="datetime-local" id="actualArrivalTime" name="actualArrivalTime" formControlName="actualArrivalTime" />
+        </div>
+
+        <div class="input-field">
+          <label for="busId">Bus</label>
+          <select class="form-control" id="busId" name="busId" formControlName="busId">
+            <option value="">-- Select Bus --</option>
+            <option *ngFor="let bus of listBus" value={{bus.busId}}>
+              {{bus.busName}} - {{bus.busType}}
+            </option>
+          </select>
+        </div>
+        <div class="input-field">
+          <label for="routeId">Route</label>
+          <select id="routeId" name="routeId" formControlName="routeId">
+            <option value="">-- Select Route --</option>
+            <option *ngFor="let route of listRoute" value="{{route.routeId}}">
+              {{route.routeName}}
+            </option>
+          </select>
+        </div>
+        <div class="input-field">
+          <label for="scheduleCancel">Schedule Cancel: </label>
+          <select id="scheduleCancel" name="scheduleCancel" formControlName="scheduleCancel">
+            <option value="">--select status--</option>
+            <option value="true">Ok</option>
+            <option value="false">Cancel</option>
+          </select>
+
+        </div>
+        <div class="input-field">
+          <label for="busStatus">Bus Status: </label>
+          <select id="busStatus" name="busStatus" formControlName="busStatus">
+            <option value="">--select status--</option>
+            <option value="NotDeparted">NotDeparted</option>
+            <option value="Running">Running</option>
+            <option value="Arrived">Arrived</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="buttons">
+
+        <button type="button" (click)="reset()" tabindex="5">
+          <i class="fa fa-refresh"></i> Reset
+        </button>
+        <button type="submit" class="sumbit" form="scheduleForm" [disabled]="!f.valid" tabindex="4">
+          <span class="btnText">Submit</span>
+          <i class="uil uil-navigator"></i>
+        </button>
+      </div>
+
+    </div>
+      </div>
+      
+</form>
+</div>
+<!--<form id="scheduleForm" [formGroup]="scheduleForm" #f="ngForm" (ngSubmit)="onSubmit()">
+  
+    <div class="col-md-4">
+      <div class="form-row">
+        <div class="form-group">
+          <button type="button" style="background-color:chocolate" class="btn btn-secondary" (click)="reset()" tabindex="5">
+            <i class="fa fa-refresh"></i> Clear
+          </button>
+          <button type="submit" style="background-color:darkblue" class="btn btn-primary" form="scheduleForm" [disabled]="!f.valid" tabindex="4">
+            <i class="fa fa-check-square-o"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+  
+</form>-->
+
+
+
+  
+
+  <p *ngIf="!listSchedule"><em>Loading...</em></p>
+  <h4 style="padding-left: 20px;">List of {{ title }}</h4>
+  <div style="height: 350px;overflow: auto;padding-left: 20px;">
+    <table class="styled-table" *ngIf="listSchedule" >
+      <thead>
+        <tr>
+          <td>Route Name</td>
+          <td>Bus Name</td>
+          <td>Departure Time</td>
+          <td>Arrival Time</td>
+          <th class="text-right">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listSchedule">
+          <td>{{ item.routeName }}</td>
+          <td>{{ item.busName }}</td>
+          <td>{{ item.departureTime | date:'dd/MM/yyyy hh:mm:ss a' }}</td>
+          <td>{{ item.arrivalTime | date:'dd/MM/yyyy hh:mm:ss a' }}</td>
+          <td>
+            <div class="pull-right">
+              <a href="#" title="Edit Record" class="btn btn-outline-secondary btn-sm waves-effect waves-light m-1" (click)="edit($event, item)">
+                <i class="fa fa-edit"></i> Edit
+              </a>
+              |
+              <a href="#" title="Delete Record" class="btn btn-outline-secondary btn-sm waves-effect waves-light m-1" (click)="delete($event, item)">
+                <i class="fa fa-trash-o"></i> Delete
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

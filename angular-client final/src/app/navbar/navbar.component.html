@@ -1,0 +1,36 @@
+
+<nav>
+    <div class="navbar">
+      <div class="logo"><i class="fa-solid fa-bus"></i><a href="#">Bus Ticket Booking</a></div>
+      <ul class="menu">
+        <li class="nav-item active" *ngIf="loginLogout === 'Logout' && role === manager">
+          <a class="nav-link" routerLink="bus">Bus</a>
+        </li>
+        <li class="nav-item" *ngIf="loginLogout === 'Logout' && role === manager">
+          <a class="nav-link" routerLink="route">Route</a>
+        </li>
+        <li class="nav-item" *ngIf="loginLogout === 'Logout'">
+          <a class="nav-link" routerLink="schedule">Schedule</a>
+        </li>
+        <li class="nav-item" *ngIf="loginLogout === 'Logout'">
+          <a class="nav-link" routerLink="booking">Booking</a>
+        </li>
+         <li class="nav-item" *ngIf="loginLogout === 'Logout' && role === manager">
+          <a class="nav-link" routerLink="cmnuser">Users</a>
+        </li> 
+      </ul>
+      <ul class="navbar-nav ml-auto" style="color:white;">
+         <li class="nav-item" *ngIf="loginLogout === 'Logout'">
+          <a class="nav-link">{{fullName}}</a>
+        </li>
+        <li class="nav-item" *ngIf="loginLogout === 'Login'">
+          <a class="nav-link" routerLink="login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="loginLogout === 'Logout'">
+          <a class="nav-link" style="color:red;" href="#" (click)="logout();">Logout</a>
+        </li> 
+      </ul>
+    </div>
+  </nav>
+
+

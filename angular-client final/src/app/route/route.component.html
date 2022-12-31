@@ -1,0 +1,101 @@
+
+<div>
+  <div class="container">
+    <h1 style="text-align:center">Bus Route</h1>
+    <h2>
+      Add New {{ title }}
+    </h2>
+    <form id="routeForm" [formGroup]="routeForm" #f="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form first">
+        <div class="details personal">
+          <div class="fields">
+            <div class="input-field">
+              <input type="hidden" id="id" name="id" />
+        <label for="routeName">Route Name: </label>
+        <input type="text" id="routeName" name="routeName" formControlName="routeName" placeholder="" required
+               onfocus="this.placeholder=''" onblur="this.placeholder='route Name'" autocomplete="off" tabindex="1" />
+            </div>
+            <div class="input-field">
+              <label for="startPoint">Starting Point: </label>
+        <input type="text" id="startPoint" name="startPoint" formControlName="startPoint" placeholder="" required
+               onfocus="this.placeholder=''" onblur="this.placeholder='start Point'" autocomplete="off" tabindex="2" />
+            </div>
+            <div class="input-field">
+              <label for="endPoint">Ending Point: </label>
+        <input type="text" id="endPoint" name="endPoint" formControlName="endPoint"  placeholder="" required
+               onfocus="this.placeholder=''" onblur="this.placeholder='end Point'" autocomplete="off" tabindex="3" />
+      
+            </div>
+            <div class="input-field">
+              <label for="busId">Bus</label>
+        <select  id="busId" name="busId" formControlName="busId">
+          <option value="">-- Select Bus --</option>
+          <option *ngFor="let bus of listBus" value={{bus.busId}}>
+            {{bus.busName}} - {{bus.busType}}
+          </option>
+        </select>
+            </div>
+            <div class="input-field">
+              <label for="unitPrice">Seat Price: </label>
+        <input type="text" id="unitPrice" name="unitPrice" formControlName="unitPrice" placeholder="" required
+               onfocus="this.placeholder=''" onblur="this.placeholder='unit Price'" autocomplete="off" tabindex="4" />
+      
+            </div>
+           
+          </div>
+          <div class="buttons">
+
+            <button type="button"  (click)="reset()" tabindex="5">
+              <i class="fa fa-refresh"></i> Reset
+            </button>
+            <button type="submit" class="sumbit" form="routeForm" [disabled]="!f.valid" tabindex="4">
+              <span class="btnText">Submit</span>
+                  <i class="uil uil-navigator"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+       <br> 
+
+  
+
+    
+
+  <p *ngIf="!listRoute"><em>Loading...</em></p>
+  <h4 style="padding-left: 20px;">List of {{ title }}</h4>
+  <div style="height: 350px;overflow: auto;padding-left: 20px;">
+    <table class="styled-table" *ngIf="listRoute" border="1" cellpadding="4px">
+      <thead>
+        <tr>
+          <td>Route Name</td>
+          <td>Start Point</td>
+          <td>End Point</td>
+          <th class="text-right">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listRoute">
+          <td>{{ item.routeName }}</td>
+          <td>{{ item.startPoint }}</td>
+          <td>{{ item.endPoint }}</td>
+          <td>
+            <div class="pull-right">
+              <a href="#" title="Edit Record" class="btn btn-outline-secondary btn-sm waves-effect waves-light m-1" (click)="edit($event, item)">
+                <i class="fa fa-edit"></i> Edit
+              </a>
+              |
+              <a href="#" title="Delete Record" class="btn btn-outline-secondary btn-sm waves-effect waves-light m-1" (click)="delete($event, item)">
+                <i class="fa fa-trash-o"></i> Delete
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

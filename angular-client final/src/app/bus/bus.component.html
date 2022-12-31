@@ -1,0 +1,148 @@
+<div>
+
+
+
+  <div class="container">
+    <header><h1 style="text-align:center">Bus Information</h1></header>
+    <h4>Add New {{title}}</h4>
+    <form id="busForm" [formGroup]="busForm" #f="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form first">
+        <div class="details personal">
+          <input type="hidden" id="id" name="id" />
+
+
+          <div class="fields">
+            <div class="input-field">
+              <label for="busName">Bus Name</label>
+              <input type="text" id="busName" name="busName" formControlName="busName" placeholder="bus name" required
+                     onfocus="this.placeholder=''" onblur="this.placeholder='bus Name'" autocomplete="off" tabindex="1" />
+            </div>
+            <div>
+              <label for="startPoint" style="font-size: 12px;font-weight: 500;color: #2e2e2e;">Bus Type:</label><br>
+              <input type="radio" id="busType" name="busType" formControlName="busType" value="NonAC" />NonAC<br />
+              <input type="radio" id="busType" name="busType" formControlName="busType" value="AC" />AC
+            </div>
+
+
+
+
+
+
+            <div class="input-field">
+              <label for="endPoint">No of Seat:</label>
+              <select id="noOfSeat" name="noOfSeat" formControlName="noOfSeat" required>
+                <option value="">--Select Number of Seats--</option>
+                <option value="40">40</option>
+              </select>
+            </div>
+
+            <div class="input-field">
+              <label for="fitnessStatus">Fitness Status: </label>
+              <select id="fitnessStatus" name="fitnessStatus" formControlName="fitnessStatus">
+                <option value="">Fitness Status</option>
+                <option value="true">Ok</option>
+                <option value="false">Not Ok</option>
+              </select>
+            </div>
+
+            <div class="input-field">
+              <input type="hidden" id="id" name="id" />
+              <label for="licenseNo">Registration No: </label>
+              <input type="text" id="licenseNo" name="licenseNo" formControlName="licenseNo" placeholder="license No"
+                     onfocus="this.placeholder=''" onblur="this.placeholder='license No'" />
+            </div>
+
+
+          </div>
+          <div class="buttons">
+
+            <button type="button" (click)="reset()" tabindex="5">
+              <i class="fa fa-refresh"></i> Reset
+            </button>
+            <button type="submit" class="sumbit" form="busForm" [disabled]="!f.valid" tabindex="4">
+              <span class="btnText">Submit</span>
+              <i class="uil uil-navigator"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <br>
+
+
+
+
+
+
+
+
+
+
+  <p *ngIf="!listBus"><em>Loading...</em></p>
+  <h4 style="padding-left: 20px;">
+    List of {{ title }}
+    <input type="button" value="Excel" (click)="exportToExcel();" *ngIf="listBus" class="btn btn-success" />|
+    <input type="button" value="PDF" (click)="exportToPDF(divId);" class="btn btn-danger" />
+  </h4>
+
+  <div style="height: 350px;overflow: auto;padding-left: 20px;">
+    <table class="styled-table" *ngIf="listBus">
+      <thead>
+        <tr>
+          <th>Bus Name</th>
+          <th>Bus Type</th>
+          <th>Number of Seat</th>
+          <th class="text-right">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listBus">
+          <td>{{ item.busName }}</td>
+          <td>{{ item.busType }}</td>
+          <td>{{ item.noOfSeat }}</td>
+          <td>
+            <div class="pull-right">
+              <a href="#" title="Edit Record" class="btn btn-outline-secondary btn-sm waves-effect waves-light m-1" (click)="edit($event, item)">
+                <i class="fa fa-edit"></i> Edit
+              </a>
+              |
+              <a href="#" title="Delete Record" class="btn btn-outline-secondary btn-sm waves-effect waves-light m-1" (click)="delete($event, item)">
+                <i class="fa fa-trash-o"></i> Delete
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="listBus" style="display:none" *ngIf="isGenerateData">
+  <div style="margin-top : 50px; text-align:center">
+    <i aria-hidden="true"></i>
+    <h3 style="color: #131212;">
+      &nbsp;&nbsp;&nbsp;&nbsp; Bus List
+    </h3>
+  </div>
+  <table class="table1" style="border-collapse:collapse;border-spacing:10px;border:1px solid black;" width="100%">
+    <thead>
+      <tr>
+        <th style="border:1px solid black;color:#131212;text-align:left">Sl.</th>
+        <th style="border:1px solid black;color:#131212;text-align:left">Bus Name</th>
+        <th style="border:1px solid black;color:#131212;text-align:left">Bus Type</th>
+        <th style="border:1px solid black;color:#131212;text-align:left">Number of Seat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border: 1px solid black;" *ngFor="let item of listBus;let sl = index">
+        <td style="border:1px solid black;color:#131212">{{sl+1}}</td>
+        <td style="border:1px solid black;color:#131212">{{ item.busName }}</td>
+        <td style="border:1px solid black;color:#131212">{{ item.busType }}</td>
+        <td style="border:1px solid black;color:#131212">{{ item.noOfSeat }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
